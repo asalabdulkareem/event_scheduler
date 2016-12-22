@@ -6,7 +6,8 @@ RSpec.describe Student, type: :model do
                           description: "Calculus Lecture",
                           email: "professor@university.edu",
                           num_times: 1,
-                          duration: 1.5) }
+                          duration: 1.5)
+  }
   subject { described_class.new name: "John Smith", event: event }
   
   it "should be valid with valid attributes" do
