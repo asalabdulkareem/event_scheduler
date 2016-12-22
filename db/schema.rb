@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161222043841) do
+ActiveRecord::Schema.define(version: 20161222044223) do
 
   create_table "available_times", force: :cascade do |t|
     t.integer  "event_id"
@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 20161222043841) do
   create_table "selected_times", force: :cascade do |t|
     t.integer  "student_id"
     t.datetime "from"
-    t.datetime "to"
     t.boolean  "suitable"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
