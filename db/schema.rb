@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161222021250) do
+ActiveRecord::Schema.define(version: 20161222043841) do
 
   create_table "available_times", force: :cascade do |t|
     t.integer  "event_id"
@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(version: 20161222021250) do
 
   create_table "selected_times", force: :cascade do |t|
     t.integer  "student_id"
-    t.integer  "event_id"
     t.datetime "from"
     t.datetime "to"
     t.boolean  "suitable"
@@ -46,7 +45,6 @@ ActiveRecord::Schema.define(version: 20161222021250) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "selected_times", ["event_id"], name: "index_selected_times_on_event_id"
   add_index "selected_times", ["student_id"], name: "index_selected_times_on_student_id"
 
   create_table "students", force: :cascade do |t|
