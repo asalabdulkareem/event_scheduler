@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'exam/review'
   
   resources :event, only: [:new]
+  get 'event/success/:id' => 'event#success'
   
   root 'event#new'
 
