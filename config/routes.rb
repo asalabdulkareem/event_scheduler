@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  resources :lecture, only: [:new, :create]
+  get 'lecture/review'
+
+  resources :exam, only: [:new, :create]
+  get 'exam/review'
+  
+  resources :event, only: [:new]
+  
+  root 'event#new'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
