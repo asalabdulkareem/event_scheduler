@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   resources :lecture, only: [:new, :create]
-  get 'lecture/review'
+  post 'lecture/review'
 
   resources :exam, only: [:new, :create]
-  get 'exam/review'
+  post 'exam/review'
   
   resources :event, only: [:new]
   get 'event/success/:id' => 'event#success'

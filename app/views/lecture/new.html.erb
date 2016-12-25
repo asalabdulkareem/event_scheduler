@@ -1,2 +1,89 @@
-<h1>Lecture#new</h1>
-<p>Find me in app/views/lecture/new.html.erb</p>
+<h1>Schedule a new lecture:</h1>
+<%= form_for @lecture, url: { action: "review" } do |f| %>
+  <div>
+  <%= f.label :lecture_title, 'Event Title:' %>
+  <%= f.text_field :lecture_title %>
+  </div>
+  
+  <div>
+  <%= f.label :description, 'Description:' %>
+  <%= f.text_area :description %>
+  </div>
+  
+  <div>
+  <%= f.label :email, 'E-Mail:' %>
+  <%= f.text_field :email %>
+  </div>
+  
+  <div>
+  <%= f.label :num_times, 'Number of times per week:' %>
+  <%= f.number_field :num_times, in: 1..7, step: 1, value: 1 %>
+  </div>
+  
+  <div>
+  <%= f.label :duration, 'Duration:' %>
+  <%
+  select_options = (0..24).step(0.5).map { |x| 
+    minute = ((x % 1) * 60)
+    sprintf("%d:%02d", x, minute)
+  }
+  %>
+  <%= f.select :duration, options_for_select(select_options) %>
+  </div>
+  
+  <div id="days">
+    <div>
+      <label>Day 1:</label>
+      <select name="day[]">
+        <option value="sunday">Sunday</option>
+      <option value="monday">Monday</option>
+      <option value="tuesday">Tuesday</option>
+      <option value="wednesday">Wednesday</option>
+      <option value="thursday">Thursday</option>
+      <option value="friday">Friday</option>
+      <option value="saturday">Saturday</option>
+      </select>
+      <br>
+      <label>From</label>
+      <select name="from[]">
+      <option value="28800">8:00 A.M.</option>
+      <option value="30600">8:30 A.M.</option>
+      <option value="32400">9:00 A.M.</option>
+      <option value="34200">9:30 A.M.</option>
+      <option value="36000">10:00 A.M.</option>
+      <option value="37800">10:30 A.M.</option>
+      <option value="39600">11:00 A.M.</option>
+      <option value="41400">11:30 A.M.</option>
+      <option value="43200">12:00 P.M.</option>
+      <option value="45000">12:30 P.M.</option>
+      <option value="46800">1:00 P.M.</option>
+      <option value="48600">1:30 P.M.</option>
+      <option value="50400">2:00 P.M.</option>
+      <option value="52200">2:30 P.M.</option>
+      <option value="54000">3:00 P.M.</option>
+      </select>
+      <label>To</label>
+      <select name="to[]">
+      <option value="28800">8:00 A.M.</option>
+      <option value="30600">8:30 A.M.</option>
+      <option value="32400">9:00 A.M.</option>
+      <option value="34200">9:30 A.M.</option>
+      <option value="36000">10:00 A.M.</option>
+      <option value="37800">10:30 A.M.</option>
+      <option value="39600">11:00 A.M.</option>
+      <option value="41400">11:30 A.M.</option>
+      <option value="43200">12:00 P.M.</option>
+      <option value="45000">12:30 P.M.</option>
+      <option value="46800">1:00 P.M.</option>
+      <option value="48600">1:30 P.M.</option>
+      <option value="50400">2:00 P.M.</option>
+      <option value="52200">2:30 P.M.</option>
+      <option value="54000">3:00 P.M.</option>
+      </select>
+    </div>
+  </div>
+  
+  <div>
+  <%= f.submit 'Next' %>
+  </div>
+<% end %>

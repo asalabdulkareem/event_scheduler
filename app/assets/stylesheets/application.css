@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+
+textarea {
+  vertical-align: top;
+}
+
+input, textarea, select {
+  margin-bottom: 20px;
+}

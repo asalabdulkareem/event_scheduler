@@ -1,4 +1,5 @@
 class Event < ActiveRecord::Base
+  has_many :available_times
   validates_presence_of :event_type
   validates_presence_of :lecture_title
   validates_presence_of :description
