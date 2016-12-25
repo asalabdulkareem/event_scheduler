@@ -15,7 +15,7 @@ class ExamController < ApplicationController
   
   def exam_params
     params.require(:exam)
-      .permit(:lecture_title, :lecture_title, :description, :email, :num_times, :duration)
+      .permit(:lecture_title, :description, :email, :num_times, :duration)
       .merge(event_type: 'exam')
   end
 end

@@ -53,10 +53,10 @@ RSpec.describe LectureController, type: :controller do
     end
     
     it "redirects to event#success" do
-      expect(response).to redirect_to(controller: :event, action: :success, id: assigns(:exam))
+      expect(response).to redirect_to(controller: :event, action: :success, id: assigns(:lecture))
     end
     
-    it "creates a new exam" do
+    it "creates a new lecture" do
       expect {
         post :create, lecture: lecture.attributes
       }.to change(Event, :count).by(1)
