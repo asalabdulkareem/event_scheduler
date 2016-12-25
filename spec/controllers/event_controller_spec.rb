@@ -7,6 +7,8 @@ RSpec.describe EventController, type: :controller do
       get :new
       expect(response).to have_http_status(:success)
     end
+    
+    it "renders the :new template"
   end
 
 end

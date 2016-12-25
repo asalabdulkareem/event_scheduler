@@ -13,8 +13,9 @@ RSpec.describe SelectedTime, type: :model do
     return e
   }
   let(:student) { Student.new name: "John Smith", event: event }
-  subject { described_class.new(student: student,
-                                from: Time.now.beginning_of_week)
+  subject {
+    described_class.new(student: student,
+                        from: Time.now.beginning_of_week)
   }
   
   it "should be valid with valid attributes" do

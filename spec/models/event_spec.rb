@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Event, type: :model do
-  subject { described_class.new(event_type: "lecture",
-                                lecture_title: "math",
-                                description: "Calculus Lecture",
-                                email: "professor@university.edu",
-                                num_times: 1,
-                                duration: 1.5)
+  subject {
+    described_class.new(event_type: "lecture",
+                        lecture_title: "math",
+                        description: "Calculus Lecture",
+                        email: "professor@university.edu",
+                        num_times: 1,
+                        duration: 1.5)
   }
   
   it "is valid with valid attributes" do
