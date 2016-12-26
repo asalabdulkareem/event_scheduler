@@ -13,6 +13,7 @@ class EventController < ApplicationController
   end
 
   def success
+    @event = Event.find params[:id]
   end
   
   private

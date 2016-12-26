@@ -1,2 +1,8 @@
-<h1>Event#success</h1>
-<p>Find me in app/views/event/success.html.erb</p>
+<h1>Thanks, NAME,</h1>
+<h2>Your event has been created.</h2>
+
+<p>The following links have been sent to <%= @event.email %> in one e-mail each.</p>
+<p>Send this link to anyone you wish to invite.</p>
+<p><%= link_to "http://link1/#{@event.link1}" %></p>
+<p>Access this link to view results</p>
+<p><%= link_to "http://link2/#{@event.link2}" %></p>

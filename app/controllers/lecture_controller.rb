@@ -11,8 +11,12 @@ class LectureController < ApplicationController
       available_time = AvailableTime.build_on_day(day: day, from: params[:from][i].to_i, to: params[:to][i].to_i)
       @lecture.available_times << available_time
     end
-    
     @timetable = AvailableTime.lecture_timetable(@lecture.available_times)
+    
+    if @lecture.invalid?
+      render :new
+    end
+    
   end
   
   private

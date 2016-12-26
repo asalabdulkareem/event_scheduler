@@ -21,3 +21,8 @@ textarea {
 input, textarea, select {
   margin-bottom: 20px;
 }
+
+.field_with_errors {
+  display: inline;
+  background-color: red;
+}
