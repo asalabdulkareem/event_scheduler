@@ -1,2 +1,86 @@
-<h1>Exam#new</h1>
-<p>Find me in app/views/exam/new.html.erb</p>
+<h1>Schedule a new exam:</h1>
+<% if @exam.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@exam.errors.count, "error") %>:</h2>
+    <ul>
+    <% @exam.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= form_for @exam, url: { action: :review } do |f| %>
+  <div>
+  <%= f.label :lecture_title, 'Event Title:' %>
+  <%= f.text_field :lecture_title %>
+  </div>
+  
+  <div>
+  <%= f.label :description, 'Description:' %>
+  <%= f.text_area :description %>
+  </div>
+  
+  <div>
+  <%= f.label :email, 'E-Mail:' %>
+  <%= f.text_field :email %>
+  </div>
+  
+  <div>
+  <%= f.label :duration, 'Duration:' %>
+  <%
+  select_options = (0..7).step(0.5).map { |x| 
+    minute = ((x % 1) * 60)
+    sprintf("%d:%02d", x, minute)
+  }
+  %>
+  <%= f.select :duration, options_for_select(select_options) %> hours
+  </div>
+  <div id="days">
+    <div>
+      <label>Suggested Day 1:</label>
+      <input name="date[]" type="date" value="<%= Date.today.to_s %>">
+      <br>
+      <label>From</label>
+      <select name="from[]">
+      <option value="28800">8:00 A.M.</option>
+      <option value="30600">8:30 A.M.</option>
+      <option value="32400">9:00 A.M.</option>
+      <option value="34200">9:30 A.M.</option>
+      <option value="36000">10:00 A.M.</option>
+      <option value="37800">10:30 A.M.</option>
+      <option value="39600">11:00 A.M.</option>
+      <option value="41400">11:30 A.M.</option>
+      <option value="43200">12:00 P.M.</option>
+      <option value="45000">12:30 P.M.</option>
+      <option value="46800">1:00 P.M.</option>
+      <option value="48600">1:30 P.M.</option>
+      <option value="50400">2:00 P.M.</option>
+      <option value="52200">2:30 P.M.</option>
+      </select>
+      <label>To</label>
+      <select name="to[]">
+      <option value="30600">8:30 A.M.</option>
+      <option value="32400">9:00 A.M.</option>
+      <option value="34200">9:30 A.M.</option>
+      <option value="36000">10:00 A.M.</option>
+      <option value="37800">10:30 A.M.</option>
+      <option value="39600">11:00 A.M.</option>
+      <option value="41400">11:30 A.M.</option>
+      <option value="43200">12:00 P.M.</option>
+      <option value="45000">12:30 P.M.</option>
+      <option value="46800">1:00 P.M.</option>
+      <option value="48600">1:30 P.M.</option>
+      <option value="50400">2:00 P.M.</option>
+      <option value="52200">2:30 P.M.</option>
+      <option value="54000">3:00 P.M.</option>
+      </select>
+    </div>
+  </div>
+  <a href="javascript:void(0)" id="add_suggested_dates">Add More Suggested dates</a>
+  <div id="suggested_days"></div>
+  
+  <div>
+  <input type="button" onclick="javascript:history.back()" value="Back">
+  <%= f.submit 'Next' %>
+  </div>
+<% end %>

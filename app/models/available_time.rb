@@ -16,6 +16,15 @@ class AvailableTime < ActiveRecord::Base
     return new(attributes)
   end
   
+  # return new AvailableTime on a specific date with offsets in seconds within that date
+  def self.build_on_date(attributes = {})
+    offset = Date.parse(attributes[:date]).to_time.to_i
+    attributes[:from] = Time.at(attributes[:from] + offset)
+    attributes[:to] = Time.at(attributes[:to] + offset)
+    attributes.delete(:date)
+    return new(attributes)
+  end
+  
   # returns a hash with keys of the form [28800, 'Sunday'], [28800, 'Monday'], ...
   # where 28800 is the number of seconds since the beginning of the day and 'Sunday' is the day
   def self.lecture_timetable(available_times)
@@ -32,6 +41,22 @@ class AvailableTime < ActiveRecord::Base
       
       (start.._end - 1).each do |x|
         timetable[[x, day]] = true
+      end
+    end
+    return timetable
+  end
+  
+  # returns a hash with keys of the form [28800, <date>], [28800, <date>], ...
+  # where 28800 is the number of seconds since the beginning of the day and <date> is the date
+  def self.exam_timetable(available_times)
+    timetable = Hash.new(false)
+    available_times.each do |available_time|
+      date = available_time.from.to_date
+      start = available_time.from.to_i % 1.day
+      _end = available_time.to.to_i % 1.day
+      
+      (start.._end - 1).each do |x|
+        timetable[[x, date]] = true
       end
     end
     return timetable

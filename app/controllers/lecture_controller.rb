@@ -16,7 +16,6 @@ class LectureController < ApplicationController
     if @lecture.invalid?
       render :new
     end
-    
   end
   
   private
