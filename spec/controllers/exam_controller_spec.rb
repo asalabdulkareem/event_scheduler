@@ -43,24 +43,4 @@ RSpec.describe ExamController, type: :controller do
     end
   end
 
-  describe "POST #create" do
-    before :each do
-      post :create, exam: exam.attributes
-    end
-    
-    it "returns http redirect" do
-      expect(response).to have_http_status(:redirect)
-    end
-    
-    it "redirects to event#success" do
-      expect(response).to redirect_to(controller: :event, action: :success, id: assigns(:exam))
-    end
-    
-    it "creates a new exam" do
-      expect {
-        post :create, exam: exam.attributes
-      }.to change(Event, :count).by(1)
-    end
-  end
-
 end
