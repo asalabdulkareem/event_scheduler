@@ -40,5 +40,6 @@
     <%= hidden_field_tag 'from[]',available_time.from.to_i %>
     <%= hidden_field_tag 'to[]', available_time.to.to_i %>
   <% end %>
-<%= f.submit 'Submit' %>
+  <input type="button" onclick="javascript:history.back()" value="Back">
+  <%= f.submit 'Submit' %>
 <% end %>
