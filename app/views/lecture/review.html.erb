@@ -17,7 +17,7 @@
       concat "<tr>".html_safe
         _start = seconds / 3600.0
         concat "<th>#{_start} - #{_start + 0.5}</th>".html_safe
-      AvailableTime::DAYS.each do |day|
+      ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].each do |day|
         if(@timetable[[seconds, day]])
           concat "<td class='marked'>1</td>".html_safe
         else

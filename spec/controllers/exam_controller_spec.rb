@@ -27,7 +27,6 @@ RSpec.describe ExamController, type: :controller do
               email: "professor@university.edu",
               num_times: 1,
               duration: 1.5)
-              
   }
 
   describe "POST #review" do
