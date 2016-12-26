@@ -27,11 +27,15 @@ RSpec.describe ExamController, type: :controller do
               email: "professor@university.edu",
               num_times: 1,
               duration: 1.5)
+              
   }
 
   describe "POST #review" do
     before :each do
-      post :review, exam: exam.attributes.except(:event_type)
+      post :review, event: exam.attributes.except(:event_type),
+            date: [Date.today],
+            from: [8.hours],
+            to: [8.hours + 30.minutes]
     end
     
     it "returns http success" do
