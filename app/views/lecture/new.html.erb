@@ -17,7 +17,7 @@
   
   <div>
   <%= f.label :num_times, 'Number of times per week:' %>
-  <%= f.number_field :num_times, in: 1..7, step: 1, value: 1 %>
+  <%= f.select :num_times, options_for_select((1..7).to_a) %>
   </div>
   
   <div>
@@ -30,7 +30,6 @@
   %>
   <%= f.select :duration, options_for_select(select_options) %>
   </div>
-  
   <div id="days">
     <div>
       <label>Day 1:</label>
@@ -60,11 +59,9 @@
       <option value="48600">1:30 P.M.</option>
       <option value="50400">2:00 P.M.</option>
       <option value="52200">2:30 P.M.</option>
-      <option value="54000">3:00 P.M.</option>
       </select>
       <label>To</label>
       <select name="to[]">
-      <option value="28800">8:00 A.M.</option>
       <option value="30600">8:30 A.M.</option>
       <option value="32400">9:00 A.M.</option>
       <option value="34200">9:30 A.M.</option>
@@ -82,6 +79,8 @@
       </select>
     </div>
   </div>
+  <a href="javascript:void" id="add_suggested_days">Add More Suggested dates</a>
+  <div id="suggested_days"></div>
   
   <div>
   <input type="button" onclick="javascript:history.back()" value="Back">
