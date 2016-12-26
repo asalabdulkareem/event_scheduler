@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
-  resources :lecture, only: [:new, :create]
+  resources :lecture, only: [:new]
   post 'lecture/review'
 
-  resources :exam, only: [:new, :create]
+  resources :exam, only: [:new]
   post 'exam/review'
   
-  resources :event, only: [:new]
+  resources :event, only: [:new, :create]
   get 'event/success/:id' => 'event#success'
   
   root 'event#new'

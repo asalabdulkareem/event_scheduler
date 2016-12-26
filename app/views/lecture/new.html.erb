@@ -1,5 +1,5 @@
 <h1>Schedule a new lecture:</h1>
-<%= form_for @lecture, url: { action: "review" } do |f| %>
+<%= form_for @lecture, url: { action: :review } do |f| %>
   <div>
   <%= f.label :lecture_title, 'Event Title:' %>
   <%= f.text_field :lecture_title %>

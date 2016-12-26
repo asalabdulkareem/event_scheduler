@@ -28,3 +28,17 @@
     end
   %>
 </table>
+
+<%= form_for @lecture, url: { controller: :event, action: :create } do |f| %>
+  <%= f.hidden_field :event_type %>
+  <%= f.hidden_field :lecture_title %>
+  <%= f.hidden_field :description %>
+  <%= f.hidden_field :email %>
+  <%= f.hidden_field :num_times %>
+  <%= f.hidden_field :duration %>
+  <% @lecture.available_times.each do |available_time| %>
+    <%= hidden_field_tag 'from[]',available_time.from.to_i %>
+    <%= hidden_field_tag 'to[]', available_time.to.to_i %>
+  <% end %>
+<%= f.submit 'Submit' %>
+<% end %>
