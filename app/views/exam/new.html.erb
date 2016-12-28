@@ -28,6 +28,7 @@
   <div>
   <%= f.label :duration, 'Duration:' %>
   <%
+  # generate ["8:00", "8:30", "9:00", "9:30", ...]
   select_options = (0..7).step(0.5).map { |x| 
     minute = ((x % 1) * 60)
     sprintf("%d:%02d", x, minute)

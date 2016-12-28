@@ -4,6 +4,7 @@ class SelectedTime < ActiveRecord::Base
   validates_presence_of :from
   validate :start_time_aligned
   
+  # validate 30-minute alignment for start time
   def start_time_aligned
     if from.present? and from.to_i % 30.minutes != 0
       errors.add(:from, "is not 30-minute aligned")

@@ -63,12 +63,15 @@ class AvailableTime < ActiveRecord::Base
   end
   
   private
+  
+  # validate that start time is before end time
   def start_time_not_after_end_time
     if from.present? and to.present? and from > to
       errors.add(:from, "is after end time")
     end
   end
   
+  # validate 30-minute alignment for start and end times
   def start_and_end_time_aligned
     if from.present? and from.to_i % 30.minutes != 0
       errors.add(:from, "is not 30-minute aligned")

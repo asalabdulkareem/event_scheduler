@@ -8,7 +8,7 @@ RSpec.describe Student, type: :model do
                           num_times: 1,
                           duration: 1.5)
   }
-  subject { described_class.new name: "John Smith", event: event }
+  subject { described_class.new name: "Ahmad", event: event }
   
   it "should be valid with valid attributes" do
     expect(subject).to be_valid
