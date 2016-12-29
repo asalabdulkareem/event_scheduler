@@ -50,3 +50,6 @@ end
 
 # needed for heroku
 gem 'rails_12factor', group: :production
+
+# code coverage
+gem 'simplecov', :require => false, :group => :test
