@@ -20,14 +20,7 @@ RSpec.describe LectureController, type: :controller do
     end
   end
 
-  let(:lecture) {
-    Event.new(event_type: "lecture",
-              lecture_title: "math",
-              description: "Calculus Exam",
-              email: "professor@university.edu",
-              num_times: 1,
-              duration: 1.5)
-  }
+  let(:lecture) { build :event, event_type: 'lecture' }
 
   describe "POST #review" do
     before :each do

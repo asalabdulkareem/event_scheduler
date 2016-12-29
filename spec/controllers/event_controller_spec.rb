@@ -9,14 +9,7 @@ RSpec.describe EventController, type: :controller do
     end
   end
   
-  let(:event) {
-    Event.new(event_type: "lecture",
-              lecture_title: "math",
-              description: "Calculus Lecture",
-              email: "professor@university.edu",
-              num_times: 1,
-              duration: 1.5)
-  }
+  let(:event) { build :event }
   let(:available_time) {
     from = Time.now.beginning_of_day + 8.hours
     to = from + 30.minutes
