@@ -42,6 +42,15 @@ RSpec.describe ExamController, type: :controller do
       expect(response).to have_http_status(:success)
     end
     
+    it "renders the :new template with invalid attributes" do
+      exam.email = nil
+      post :review, event: exam.attributes.except(:event_type),
+            date: [Date.today],
+            from: [8.hours],
+            to: [8.hours + 30.minutes]
+      expect(response).to render_template('new')
+    end
+    
     # should render /exam/review template (timetable)
     it "renders the :review template" do
       expect(response).to render_template('review')
