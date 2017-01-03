@@ -33,6 +33,7 @@ day_html = (n) ->
         <option value="50400">2:00 P.M.</option>
         <option value="52200">2:30 P.M.</option>
         </select>
+        <br>
         <label>To</label>
         <select name="to[]">
         <option value="30600">8:30 A.M.</option>
