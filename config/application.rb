@@ -32,5 +32,18 @@ module EventScheduler
         :controller_specs => true,
         :request_specs => true
     end
+    
+    # configure SMTP
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      address:              'smtp.gmail.com',
+      port:                 587,
+      domain:               'gmail.com',
+      user_name:            'evsched1233@gmail.com',
+      password:             '8ztAY+AWgq&*X.+8',
+      authentication:       'plain',
+      enable_starttls_auto: true
+    }
+    
   end
 end

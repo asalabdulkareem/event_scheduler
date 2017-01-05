@@ -27,6 +27,11 @@ class EventController < ApplicationController
     else
       # we already validated in LectureController#review or ExamController#review
       @event.save
+      if @event.event_type == 'lecture'
+        UserMailer.lecture_created(@event).deliver
+      else
+        UserMailer.exam_created(@event).deliver
+      end
       redirect_to action: :success, id: @event
     end
   end
