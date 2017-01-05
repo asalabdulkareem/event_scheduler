@@ -39,4 +39,7 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  
+  # Configure test hostname
+  config.x.host = "event-scheduler-asalabdulkareem.c9users.io"
 end

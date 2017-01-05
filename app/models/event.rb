@@ -11,6 +11,14 @@ class Event < ActiveRecord::Base
   # generate links for every new event
   after_initialize :generate_links
   
+  def url1
+    return "https://#{Rails.configuration.x.host}/#{self.link1}"
+  end
+  
+  def url2
+    return "https://#{Rails.configuration.x.host}/#{self.link2}"
+  end
+  
   private
   def generate_links
     # generate random links (32 random hexadecimal characters)

@@ -2,6 +2,6 @@
 Hi,<br>
 You have created <%= @exam.lecture_title %> exam.<br>
 <br>
-Send this link to the participants you wish to invite: <%= "http://link1/#{@exam.link1}" %><br>
-This link to view results: <%= "http://link2/#{@exam.link2}" %><br>
+Send this link to the participants you wish to invite: <a href="<%= @exam.url1 %>"><%= @exam.url1 %></a><br>
+This link to view results: <a href="<%= @exam.url2 %>"><%= @exam.url2 %></a><br>
 You should keep this e-mail in case you want to edit your event or invite more participants later on.
