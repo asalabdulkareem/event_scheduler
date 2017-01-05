@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :event, only: [:new, :create]
   get 'event/success/:id' => 'event#success'
   
+  get ':link' => 'event#special_link'
+  
   root 'event#new'
 
   # The priority is based upon order of creation: first created -> highest priority.

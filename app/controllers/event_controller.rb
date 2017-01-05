@@ -2,6 +2,22 @@ class EventController < ApplicationController
   def new
   end
   
+  # handle special link for participation or viewing results
+  def special_link
+    link = params[:link]
+    
+    # participation link?
+    event = Event.find_by(link1: link)
+    return participate(event) if event
+    
+    # view results link?
+    event = Event.find_by(link2: link)
+    return view_results(event) if event
+    
+    # invalid link
+    not_found
+  end
+  
   # CRUD create for events
   def create
     @event = Event.new event_params
@@ -28,9 +44,9 @@ class EventController < ApplicationController
       # we already validated in LectureController#review or ExamController#review
       @event.save
       if @event.event_type == 'lecture'
-        UserMailer.lecture_created(@event).deliver
+        UserMailer.lecture_created(@event).deliver_now
       else
-        UserMailer.exam_created(@event).deliver
+        UserMailer.exam_created(@event).deliver_now
       end
       redirect_to action: :success, id: @event
     end
@@ -56,5 +72,13 @@ class EventController < ApplicationController
     uri = URI('https://www.google.com/recaptcha/api/siteverify')
     res = Net::HTTP.post_form(uri, 'secret' => Rails.application.secrets.RECAPTCHA_SECRET, 'response' => response)
     return JSON.parse(res.body)['success']
+  end
+  
+  def participate(event)
+    render text: 'participate'
+  end
+  
+  def view_results(event)
+    render text: 'view results'
   end
 end
