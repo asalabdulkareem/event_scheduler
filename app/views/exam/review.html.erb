@@ -44,6 +44,8 @@
     <%= hidden_field_tag 'from[]',available_time.from.to_i %>
     <%= hidden_field_tag 'to[]', available_time.to.to_i %>
   <% end %>
+  
+  <div class="g-recaptcha" data-sitekey="6LfZsRAUAAAAAJvfa7lJz4z20cjBkhBGjgTKbqzB"></div>
   <input type="button" onclick="javascript:history.back()" value="Back">
   <%= f.submit 'Submit' %>
 <% end %>
