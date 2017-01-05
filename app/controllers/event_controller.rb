@@ -48,7 +48,7 @@ class EventController < ApplicationController
   def verify_recaptcha(response)
     require 'net/http'
     uri = URI('https://www.google.com/recaptcha/api/siteverify')
-    res = Net::HTTP.post_form(uri, 'secret' => '6LfZsRAUAAAAAOjAbqka7qvBOU1LDmaO8XBLykLT', 'response' => response)
+    res = Net::HTTP.post_form(uri, 'secret' => Rails.application.secrets.RECAPTCHA_SECRET, 'response' => response)
     return JSON.parse(res.body)['success']
   end
 end
