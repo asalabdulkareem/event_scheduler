@@ -11,9 +11,24 @@ class EventController < ApplicationController
     params[:from].zip(params[:to]) do |from, to|
       @event.available_times << AvailableTime.new(from: Time.at(from.to_i), to: Time.at(to.to_i))
     end
-    # we already validated in LectureController#review or ExamController#review
-    @event.save
-    redirect_to action: :success, id: @event
+    
+    # verify recaptcha
+    if not verify_recaptcha(params['g-recaptcha-response'])
+      # render timetable review if recaptcha invalid
+      if @event.event_type == 'lecture'
+        @lecture = @event
+        @timetable = AvailableTime.lecture_timetable(@event.available_times)
+      else
+        @exam = @event
+        @timetable = AvailableTime.exam_timetable(@event.available_times)
+      end
+      flash.now[:notice] = "Invalid recaptcha!"
+      render @event.event_type + "/review"
+    else
+      # we already validated in LectureController#review or ExamController#review
+      @event.save
+      redirect_to action: :success, id: @event
+    end
   end
 
   # CRUD read for events
@@ -28,5 +43,12 @@ class EventController < ApplicationController
   def event_params
     params.require(:event)
       .permit(:event_type, :lecture_title, :description, :email, :num_times, :duration)
+  end
+  
+  def verify_recaptcha(response)
+    require 'net/http'
+    uri = URI('https://www.google.com/recaptcha/api/siteverify')
+    res = Net::HTTP.post_form(uri, 'secret' => '6LfZsRAUAAAAAOjAbqka7qvBOU1LDmaO8XBLykLT', 'response' => response)
+    return JSON.parse(res.body)['success']
   end
 end

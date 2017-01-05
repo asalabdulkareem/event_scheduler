@@ -84,3 +84,7 @@ td.marked {
 .legend span {
   color: black;
 }
+
+.flash {
+  background: red;
+}
