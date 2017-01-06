@@ -48,13 +48,20 @@ class EventController < ApplicationController
       else
         UserMailer.exam_created(@event).deliver_now
       end
-      redirect_to action: :success, id: @event
+      redirect_to action: :created, id: @event
     end
+  end
+  
+  def participate
   end
 
   # CRUD read for events
   # find saved event with id params[:id] and display success page
-  def success
+  def created
+    @event = Event.find params[:id]
+  end
+  
+  def participated
     @event = Event.find params[:id]
   end
   

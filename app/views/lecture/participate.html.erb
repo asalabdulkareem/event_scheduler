@@ -38,6 +38,11 @@
   <li style="color: red"><span>Not Suitable</span></li>
 </ul>
 
+<%= form_tag controller: :event, action: :participate, id: @lecture.id do %>
+  <div id="selected_times"></div>
+  <input type="submit" name="submit" value="Submit">
+<% end %>
+
 <script>
   participate_init();
 </script>

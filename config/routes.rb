@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   post 'exam/review'
   
   resources :event, only: [:new, :create]
-  get 'event/success/:id' => 'event#success'
+  post 'event/participate/:id' => 'event#participate'
+  get 'event/created/:id' => 'event#created'
+  get 'event/participated/:id' => 'event#participated'
   
   get ':link' => 'event#special_link'
   
