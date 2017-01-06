@@ -75,10 +75,29 @@ class EventController < ApplicationController
   end
   
   def participate(event)
-    render text: 'participate'
+    return participate_lecture(event) if event.event_type == 'lecture'
+    return participate_exam(event)
+  end
+  
+  def participate_lecture(lecture)
+    @timetable = AvailableTime.lecture_timetable(lecture.available_times)
+    render 'lecture/participate'
+  end
+  
+  def participate_exam(exam)
+    render 'exam/participate'
   end
   
   def view_results(event)
-    render text: 'view results'
+    return view_lecture_results(event) if event.event_type == 'lecture'
+    return view_exam_results(event)
+  end
+  
+  def view_lecture_results(lecture)
+    render 'lecture/results'
+  end
+  
+  def view_exam_results(exam)
+    render 'exam/results'
   end
 end
