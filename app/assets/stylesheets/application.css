@@ -64,27 +64,6 @@ input[type="button"], input[type="submit"] {
   margin: 20px;
 }
 
-table {
-  color: white;
-  text-align: left;
-}
-
-th {
-  background: #64B5F6;
-}
-
-td {
-  background: gray;
-}
-
-td.marked {
-  background: cyan;
-}
-
-.legend span {
-  color: black;
-}
-
 .flash {
   background: red;
 }

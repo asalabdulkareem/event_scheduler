@@ -80,6 +80,7 @@ class EventController < ApplicationController
   end
   
   def participate_lecture(lecture)
+    @lecture = lecture
     @timetable = AvailableTime.lecture_timetable(lecture.available_times)
     render 'lecture/participate'
   end

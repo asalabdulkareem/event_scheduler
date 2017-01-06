@@ -1,0 +1,29 @@
+table {
+  color: white;
+  text-align: left;
+}
+
+th {
+  background: #64B5F6;
+}
+
+td {
+  background: gray;
+}
+
+td.available {
+  background: cyan;
+  cursor: pointer; cursor: hand;
+}
+
+td.suitable {
+  background: green;
+}
+
+td.not-suitable {
+  background: red;
+}
+
+.legend span {
+  color: black;
+}

@@ -16,4 +16,11 @@ module ApplicationHelper
     time = sprintf("%d:%02d %s", hours, minutes, suffix)
     return time
   end
+  
+  def float_to_time(float)
+    hours = float
+    minutes = (float % 1) * 60
+    time = sprintf("%d:%02d", hours, minutes)
+    return time
+  end
 end

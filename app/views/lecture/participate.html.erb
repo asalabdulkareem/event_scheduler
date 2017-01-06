@@ -1,4 +1,4 @@
-<h1>Lectures Table</h1>
+<p>You are invited to <%= @lecture.lecture_title %> lecture that occur <%= @lecture.num_times %> per week for <%= float_to_time(@lecture.duration) %> hours per day</p>
 <table>
   <tr>
     <th>Time/Date</th>
@@ -20,7 +20,7 @@
       concat "<th>#{_start} - #{_end}</th>".html_safe
       ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].each do |day|
         if(@timetable[[seconds, day]])
-          concat "<td class='marked'></td>".html_safe
+          concat "<td class='available'></td>".html_safe
         else
           concat "<td></td>".html_safe
         end
@@ -37,3 +37,7 @@
   <li style="color: green"><span>Suitable</span></li>
   <li style="color: red"><span>Not Suitable</span></li>
 </ul>
+
+<script>
+  participate_init();
+</script>
