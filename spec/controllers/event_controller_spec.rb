@@ -34,8 +34,8 @@ RSpec.describe EventController, type: :controller do
     end
     
     # it should redirect us to success page
-    it "redirects to event#success" do
-      expect(response).to redirect_to(controller: :event, action: :success, id: assigns(:event))
+    it "redirects to event#created" do
+      expect(response).to redirect_to(controller: :event, action: :created, id: assigns(:event))
     end
     
     # it should create the new event
@@ -47,13 +47,13 @@ RSpec.describe EventController, type: :controller do
     end
   end
 
-  # success page /event/success/:id
-  describe "GET #success" do
+  # success page /event/created/:id
+  describe "GET #created" do
     it "returns http success" do
       # generate ID for this event by saving in database
       event.save
       # get success page for this ID
-      get :success, id: event
+      get :created, id: event
       # it should give us status success
       expect(response).to have_http_status(:success)
     end
