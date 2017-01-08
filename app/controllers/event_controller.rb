@@ -8,11 +8,17 @@ class EventController < ApplicationController
     
     # participation link?
     event = Event.find_by(link1: link)
-    return participate(event) if event
+    if event
+      return participate_lecture(event) if event.event_type == 'lecture'
+      return participate_exam(event)
+    end
     
     # view results link?
     event = Event.find_by(link2: link)
-    return view_results(event) if event
+    if event
+      return view_lecture_results(event) if event.event_type == 'lecture'
+      return view_exam_results(event)
+    end
     
     # invalid link
     not_found
@@ -53,15 +59,18 @@ class EventController < ApplicationController
   end
   
   def participate
+    @event = Event.find params[:id]
+    @student = Student.new(name: params[:name], event: @event)
+    params[:suitable].each { |time| @student.selected_times.new(from: Time.at(time.to_i), suitable: true) } if params.include?(:suitable)
+    params[:not_suitable].each { |time| @student.selected_times.new(from: Time.at(time.to_i), suitable: false) } if params.include?(:not_suitable)
+    @student.save
+    puts @student.errors.messages
+    render 'participated'
   end
 
   # CRUD read for events
   # find saved event with id params[:id] and display success page
   def created
-    @event = Event.find params[:id]
-  end
-  
-  def participated
     @event = Event.find params[:id]
   end
   
@@ -81,11 +90,6 @@ class EventController < ApplicationController
     return JSON.parse(res.body)['success']
   end
   
-  def participate(event)
-    return participate_lecture(event) if event.event_type == 'lecture'
-    return participate_exam(event)
-  end
-  
   def participate_lecture(lecture)
     @lecture = lecture
     @timetable = AvailableTime.lecture_timetable(lecture.available_times)
@@ -93,12 +97,9 @@ class EventController < ApplicationController
   end
   
   def participate_exam(exam)
+    @exam = exam
+    @timetable = AvailableTime.exam_timetable(exam.available_times)
     render 'exam/participate'
-  end
-  
-  def view_results(event)
-    return view_lecture_results(event) if event.event_type == 'lecture'
-    return view_exam_results(event)
   end
   
   def view_lecture_results(lecture)

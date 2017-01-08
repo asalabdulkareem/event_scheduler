@@ -1,29 +1,26 @@
-<p>You are invited to <%= @lecture.lecture_title %> lecture that occur <%= @lecture.num_times %> per week for <%= float_to_time(@lecture.duration) %> hours per day</p>
-<%= form_tag controller: :event, action: :participate, id: @lecture.id do %>
+<p>You are invited to <%= @exam.lecture_title %> exam for <%= float_to_time(@exam.duration) %> hours</p>
+<%= form_tag controller: :event, action: :participate, id: @exam.id do %>
 <label>Enter your name: </label><input type="text" name="name"><br>
 <p>Please Choose the suitable time for you by clicking the table cells</p>
 <table>
   <tr>
     <th>Time/Date</th>
-    <th>Sunday</th>
-    <th>Monday</th>
-    <th>Tuesday</th>
-    <th>Wednesday</th>
-    <th>Thursday</th>
-    <th>Friday</th>
-    <th>Saturday</th>
+    <% dates = @timetable.keys.map { |x, y| y }.uniq %>
+    <% dates.each do |date| %>
+      <th><%= AvailableTime::DAYS[date - date.beginning_of_week].capitalize %><br><%= date.to_s %></th>
+    <% end %>
   </tr>
   <%
-    # @timetable is a hash with keys of the form [28800, 'Sunday'], [28800, 'Monday'], ...
-    # where 28800 is the number of seconds since the beginning of the day and 'Sunday' is the day
+    # @timetable is a hash with keys of the form [28800, <date>], [28800, <date>], ...
+    # where 28800 is the number of seconds since the beginning of the day and <date> is the date
     (28800..52200).step(1800).each do |seconds|
       concat "<tr>".html_safe
       _start = seconds_to_12_hour_time(seconds)
       _end = seconds_to_12_hour_time(seconds + 1800)
       concat "<th>#{_start} - #{_end}</th>".html_safe
-      ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].each do |day|
-        if(@timetable[[seconds, day]])
-          time = AvailableTime.build_on_day(day: day, from: seconds, to: seconds + 1800)
+      dates.each do |date|
+        if(@timetable[[seconds, date]])
+          time = AvailableTime.build_on_date(date: date.to_s, from: seconds, to: seconds + 1800)
           concat "<td class='available' data-time='#{time.from.to_i}'></td>".html_safe
         else
           concat "<td></td>".html_safe
