@@ -5,23 +5,34 @@ class EventController < ApplicationController
   # handle special link for participation or viewing results
   def special_link
     link = params[:link]
+    template = nil
     
     # participation link?
     event = Event.find_by(link1: link)
-    if event
-      return participate_lecture(event) if event.event_type == 'lecture'
-      return participate_exam(event)
-    end
+    template = 'participate' if event
     
     # view results link?
-    event = Event.find_by(link2: link)
-    if event
-      return view_lecture_results(event) if event.event_type == 'lecture'
-      return view_exam_results(event)
+    event = Event.find_by(link2: link) if !template and !event
+    template = 'results' if event
+    
+    # invalid link?
+    if !template
+      not_found
+      return
     end
     
-    # invalid link
-    not_found
+    # render correct template (4 possibilities)
+    if event.event_type == 'lecture'
+      template = 'lecture/' + template
+      @lecture = event
+      @timetable = AvailableTime.lecture_timetable(@lecture.available_times)
+    else
+      template = 'exam/' + template
+      @exam = event
+      @timetable = AvailableTime.exam_timetable(@exam.available_times)
+    end
+    
+    render template
   end
   
   # CRUD create for events
@@ -92,31 +103,5 @@ class EventController < ApplicationController
     uri = URI('https://www.google.com/recaptcha/api/siteverify')
     res = Net::HTTP.post_form(uri, 'secret' => Rails.application.secrets.RECAPTCHA_SECRET, 'response' => response)
     return JSON.parse(res.body)['success']
-  end
-  
-  # participate in lecture
-  def participate_lecture(lecture)
-    @lecture = lecture
-    @timetable = AvailableTime.lecture_timetable(lecture.available_times)
-    render 'lecture/participate'
-  end
-  
-  # participate in exam
-  def participate_exam(exam)
-    @exam = exam
-    @timetable = AvailableTime.exam_timetable(exam.available_times)
-    render 'exam/participate'
-  end
-  
-  # view results for lecture
-  def view_lecture_results(lecture)
-    @lecture = lecture
-    @timetable = AvailableTime.lecture_timetable(lecture.available_times)
-    render 'lecture/results'
-  end
-  
-  # view results for exam
-  def view_exam_results(exam)
-    render 'exam/results'
   end
 end
