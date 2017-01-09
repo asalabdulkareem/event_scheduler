@@ -1,3 +1,14 @@
 // Place all the styles related to the event controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.participants {
+  margin: 20px 0;
+  td {
+    color: black;
+    background: #d0d8e8;
+  }
+  tr:nth-child(1) td {
+    background: #e9edf4;
+  }
+}

@@ -49,6 +49,8 @@ class EventController < ApplicationController
     else
       # we already validated in LectureController#review or ExamController#review
       @event.save
+      
+      # send email
       if @event.event_type == 'lecture'
         UserMailer.lecture_created(@event).deliver_now
       else
@@ -58,6 +60,7 @@ class EventController < ApplicationController
     end
   end
   
+  # participate in the event with given ID as student with name and selected times (suitable and not suitable)
   def participate
     @event = Event.find params[:id]
     @student = Student.new(name: params[:name], event: @event)
@@ -82,6 +85,7 @@ class EventController < ApplicationController
       .permit(:event_type, :lecture_title, :description, :email, :num_times, :duration)
   end
   
+  # server side recaptcha verification
   def verify_recaptcha(response)
     return true if Rails.env.test?
     require 'net/http'
@@ -90,22 +94,28 @@ class EventController < ApplicationController
     return JSON.parse(res.body)['success']
   end
   
+  # participate in lecture
   def participate_lecture(lecture)
     @lecture = lecture
     @timetable = AvailableTime.lecture_timetable(lecture.available_times)
     render 'lecture/participate'
   end
   
+  # participate in exam
   def participate_exam(exam)
     @exam = exam
     @timetable = AvailableTime.exam_timetable(exam.available_times)
     render 'exam/participate'
   end
   
+  # view results for lecture
   def view_lecture_results(lecture)
+    @lecture = lecture
+    @timetable = AvailableTime.lecture_timetable(lecture.available_times)
     render 'lecture/results'
   end
   
+  # view results for exam
   def view_exam_results(exam)
     render 'exam/results'
   end
