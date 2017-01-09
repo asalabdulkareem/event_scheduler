@@ -9,10 +9,12 @@ class AvailableTime < ActiveRecord::Base
   # return new AvailableTime on a specific day with offsets in seconds within that day
   DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
   def self.build_on_day(attributes = {})
-    offset = (Time.now.beginning_of_week + DAYS.index(attributes[:day]) * 1.days).to_i
+    attributes[:base] ||= Time.now
+    offset = (attributes[:base].beginning_of_week + DAYS.index(attributes[:day]) * 1.days).to_i
     attributes[:from] = Time.at(attributes[:from] + offset)
     attributes[:to] = Time.at(attributes[:to] + offset)
     attributes.delete(:day)
+    attributes.delete(:base)
     return new(attributes)
   end
   

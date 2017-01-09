@@ -26,6 +26,8 @@
   <%
     # @timetable is a hash with keys of the form [28800, 'Sunday'], [28800, 'Monday'], ...
     # where 28800 is the number of seconds since the beginning of the day and 'Sunday' is the day
+    base = @lecture.available_times.first.from if @lecture.available_times.count > 0
+    base ||= Time.now
     (28800..52200).step(1800).each do |seconds|
       concat "<tr>".html_safe
       _start = seconds_to_12_hour_time(seconds)
@@ -33,8 +35,8 @@
       concat "<th>#{_start} - #{_end}</th>".html_safe
       ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].each do |day|
         if(@timetable[[seconds, day]])
-          time = AvailableTime.build_on_day(day: day, from: seconds, to: seconds + 1800)
-          concat "<td class='available' id='#{time.from.to_i}'></td>".html_safe
+          time = AvailableTime.build_on_day(day: day, from: seconds, to: seconds + 1800, base: base)
+          concat "<td class='available' data-time='#{time.from.to_i}'></td>".html_safe
         else
           concat "<td></td>".html_safe
         end
