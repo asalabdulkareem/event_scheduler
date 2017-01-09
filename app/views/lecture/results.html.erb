@@ -5,13 +5,8 @@
     <th width="200px">Name</th>
     <th width="100px">Action</th>
   </tr>
-  <% @lecture.students.each do |student| %>
-  <tr>
-    <td><%= student.name %></td>
-    <td><a href="javascript:void(0)">Hide/Show</a></td>
-  </tr>
-  <% end %>
 </table>
+
 <table>
   <tr>
     <th>Time/Date</th>
@@ -55,6 +50,6 @@
 </ul>
 
 <script>
-  participants = <%= @participants.html_safe %>
-  //participate_init();
+  participants = <%= @participants.html_safe %>;
+  results_init();
 </script>
