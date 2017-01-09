@@ -21,6 +21,22 @@ class EventController < ApplicationController
       return
     end
     
+    # encode participants information as JSON
+    if template == 'results'
+      @participants = event.students.map do |student|
+        {
+          name: student.name,
+          times: student.selected_times.map do |time|
+            {
+              time: time.from.to_i,
+              suitable: time.suitable
+            }
+          end,
+          show: true
+        }
+      end.to_json
+    end
+    
     # render correct template (4 possibilities)
     if event.event_type == 'lecture'
       template = 'lecture/' + template

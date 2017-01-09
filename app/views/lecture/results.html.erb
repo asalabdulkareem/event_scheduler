@@ -34,7 +34,7 @@
       ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].each do |day|
         if(@timetable[[seconds, day]])
           time = AvailableTime.build_on_day(day: day, from: seconds, to: seconds + 1800)
-          concat "<td class='available' data-time='#{time.from.to_i}'></td>".html_safe
+          concat "<td class='available' id='#{time.from.to_i}'></td>".html_safe
         else
           concat "<td></td>".html_safe
         end
@@ -53,5 +53,6 @@
 </ul>
 
 <script>
+  participants = <%= @participants.html_safe %>
   //participate_init();
 </script>
