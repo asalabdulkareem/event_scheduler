@@ -13,7 +13,7 @@ class EventController < ApplicationController
     
     # view results link?
     event = Event.find_by(link2: link) if !template and !event
-    template = 'results' if event
+    template = 'results' if event and !template
     
     # invalid link?
     if !template

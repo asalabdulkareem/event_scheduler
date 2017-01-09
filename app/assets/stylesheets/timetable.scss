@@ -9,21 +9,32 @@ th {
 
 td {
   background: gray;
-}
+  
+  &.available {
+    background: cyan;
+    cursor: pointer; cursor: hand;
+    padding: 0 10px;
+  }
 
-td.available {
-  background: cyan;
-  cursor: pointer; cursor: hand;
-}
-
-td.suitable {
-  background: green;
-}
-
-td.not-suitable {
-  background: red;
+  &.suitable {
+    background: green;
+  }
+  
+  &.not-suitable {
+    background: red;
+  }
 }
 
 .legend span {
   color: black;
+}
+
+span.num-suitable {
+  float: left;
+  color: green;
+}
+
+span.num-not-suitable {
+  float: right;
+  color: red;
 }
