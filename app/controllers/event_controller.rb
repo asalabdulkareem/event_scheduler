@@ -16,10 +16,7 @@ class EventController < ApplicationController
     template = 'results' if event and !template
     
     # invalid link?
-    if !template
-      not_found
-      return
-    end
+    not_found if !template
     
     # encode participants information as JSON
     if template == 'results'
@@ -94,7 +91,6 @@ class EventController < ApplicationController
     params[:suitable].each { |time| @student.selected_times.new(from: Time.at(time.to_i), suitable: true) } if params.include?(:suitable)
     params[:not_suitable].each { |time| @student.selected_times.new(from: Time.at(time.to_i), suitable: false) } if params.include?(:not_suitable)
     @student.save
-    puts @student.errors.messages
     render 'participated'
   end
 
@@ -114,7 +110,7 @@ class EventController < ApplicationController
   
   # server side recaptcha verification
   def verify_recaptcha(response)
-    return true if Rails.env.test?
+    return true if Rails.env.test? and response == 'valid'
     require 'net/http'
     uri = URI('https://www.google.com/recaptcha/api/siteverify')
     res = Net::HTTP.post_form(uri, 'secret' => Rails.application.secrets.RECAPTCHA_SECRET, 'response' => response)
