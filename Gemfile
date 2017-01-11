@@ -40,6 +40,9 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.5'
   # Use factory girl
   gem 'factory_girl_rails'
+  # Use cucumber for feature tests
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
 end
 
 group :development do
