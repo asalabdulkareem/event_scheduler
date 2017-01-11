@@ -2,7 +2,7 @@
 <%= form_tag controller: :event, action: :participate, id: @exam.id do %>
 <label>Enter your name: </label><input type="text" name="name"><br>
 <p>Please Choose the suitable time for you by clicking the table cells</p>
-<%= render 'timetable' %>
+<%= render 'exam/timetable' %>
 
 
 <p>Legend</p>
