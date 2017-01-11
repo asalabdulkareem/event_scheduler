@@ -1,0 +1,30 @@
+# Place all the behaviors and hooks related to the matching controller here.
+# All this logic will automatically be available in application.js.
+# You can use CoffeeScript in this file: http://coffeescript.org/
+
+<% environment.context_class.instance_eval { include ApplicationHelper } %>
+
+day_html = (n, date) ->
+  """
+      <div>
+        <label>Suggested Day #{n}:</label>
+        <input name="date[]" type="date" value="#{date}">
+        <br>
+        <label>From</label>
+        <select name="from[]">
+        <%= generate_hour_options %>
+        </select>
+        <br>
+        <label>To</label>
+        <select name="to[]">
+        <%= generate_hour_options %>
+        </select>
+      </div>
+  """
+
+$ ->
+  total_days = 1
+  
+  $('#add_suggested_dates').click ->
+    date = $('input[type=date]').first().val();
+    $('#suggested_days').append(day_html(++total_days, date))

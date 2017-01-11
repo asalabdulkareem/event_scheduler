@@ -1,34 +1,5 @@
 <h1>Lectures Table</h1>
-<table>
-  <tr>
-    <th>Time/Date</th>
-    <th>Sunday</th>
-    <th>Monday</th>
-    <th>Tuesday</th>
-    <th>Wednesday</th>
-    <th>Thursday</th>
-    <th>Friday</th>
-    <th>Saturday</th>
-  </tr>
-  <%
-    # @timetable is a hash with keys of the form [28800, 'Sunday'], [28800, 'Monday'], ...
-    # where 28800 is the number of seconds since the beginning of the day and 'Sunday' is the day
-    (28800..52200).step(1800).each do |seconds|
-      concat "<tr>".html_safe
-      _start = seconds_to_12_hour_time(seconds)
-      _end = seconds_to_12_hour_time(seconds + 1800)
-      concat "<th>#{_start} - #{_end}</th>".html_safe
-      ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].each do |day|
-        if(@timetable[[seconds, day]])
-          concat "<td class='available'></td>".html_safe
-        else
-          concat "<td></td>".html_safe
-        end
-      end
-      concat "</tr>".html_safe
-    end
-  %>
-</table>
+<%= render 'timetable' %>
 
 <p>Legend</p>
 <ul class="legend">

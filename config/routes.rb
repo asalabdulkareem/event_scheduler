@@ -8,8 +8,6 @@ Rails.application.routes.draw do
   resources :event, only: [:new, :create]
   post 'event/participate/:id' => 'event#participate'
   get 'event/created/:id' => 'event#created'
-  get 'event/participated/:id' => 'event#participated'
-  
   get ':link' => 'event#special_link'
   
   root 'event#new'

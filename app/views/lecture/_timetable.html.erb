@@ -1,0 +1,34 @@
+<table>
+  <tr>
+    <th>Time/Date</th>
+    <th>Sunday</th>
+    <th>Monday</th>
+    <th>Tuesday</th>
+    <th>Wednesday</th>
+    <th>Thursday</th>
+    <th>Friday</th>
+    <th>Saturday</th>
+  </tr>
+  <%
+    # @timetable is a hash with keys of the form [28800, 'Sunday'], [28800, 'Monday'], ...
+    # where 28800 is the number of seconds since the beginning of the day and 'Sunday' is the day
+    base = @lecture.available_times.first.from if @lecture.available_times.count > 0
+    base ||= Time.now
+    (8..19.5).step(0.5).each do |hours|
+      seconds = (hours * 3600).to_i
+      concat "<tr>".html_safe
+      _start = seconds_to_12_hour_time(seconds)
+      _end = seconds_to_12_hour_time(seconds + 1800)
+      concat "<th>#{_start} - #{_end}</th>".html_safe
+      ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].each do |day|
+        if(@timetable[[seconds, day]])
+          time = AvailableTime.build_on_day(day: day, from: seconds, to: seconds + 1800, base: base)
+          concat "<td class='available' data-time='#{time.from.to_i}'></td>".html_safe
+        else
+          concat "<td></td>".html_safe
+        end
+      end
+      concat "</tr>".html_safe
+    end
+  %>
+</table>

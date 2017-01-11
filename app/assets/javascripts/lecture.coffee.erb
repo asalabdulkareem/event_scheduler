@@ -1,0 +1,47 @@
+# Place all the behaviors and hooks related to the matching controller here.
+# All this logic will automatically be available in application.js.
+# You can use CoffeeScript in this file: http://coffeescript.org/
+
+<% environment.context_class.instance_eval { include ApplicationHelper } %>
+
+day_html = (n) ->
+  """
+      <div>
+        <label>Day #{n}:</label>
+        <select name="day[]">
+        <option value="sunday">Sunday</option>
+        <option value="monday">Monday</option>
+        <option value="tuesday">Tuesday</option>
+        <option value="wednesday">Wednesday</option>
+        <option value="thursday">Thursday</option>
+        <option value="friday">Friday</option>
+        <option value="saturday">Saturday</option>
+        </select>
+        <br>
+        <label>From</label>
+        <select name="from[]">
+        <%= generate_hour_options %>
+        </select>
+        <br>
+        <label>To</label>
+        <select name="to[]">
+        <%= generate_hour_options %>
+        </select>
+      </div>
+  """
+
+$ ->
+  total_days = 1
+  $("#event_num_times").change ->
+    new_html = ''
+    i = 1
+    n = parseInt($(this).val())
+    while i <= n
+      new_html += day_html(i)
+      i++
+    $('#days').html(new_html)
+    $('#suggested_days').html('')
+    total_days = n
+  
+  $('#add_suggested_days').click ->
+    $('#suggested_days').append(day_html(++total_days))

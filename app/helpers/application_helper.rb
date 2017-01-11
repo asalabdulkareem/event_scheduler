@@ -17,10 +17,23 @@ module ApplicationHelper
     return time
   end
   
+  # return duration formatted as hours:minutes given the number of hours as a float
   def float_to_time(float)
     hours = float
     minutes = (float % 1) * 60
     time = sprintf("%d:%02d", hours, minutes)
     return time
   end
+  
+  def generate_hour_options
+    options = ''
+    (8..20).step(0.5).each do |hours|
+      seconds = (hours * 3600).to_i
+      formatted = seconds_to_12_hour_time(seconds)
+      options += "<option value=\"#{seconds}\">#{formatted}</option>\n"
+    end
+    
+    return options
+  end
+  
 end
