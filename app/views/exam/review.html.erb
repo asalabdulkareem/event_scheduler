@@ -19,7 +19,11 @@
     <%= hidden_field_tag 'to[]', available_time.to.to_i %>
   <% end %>
   
+  <% if Rails.env.test? %>
+  <%= hidden_field_tag 'g-recaptcha-response', 'valid' %>
+  <% else %>
   <div class="g-recaptcha" data-sitekey="<%= Rails.application.secrets.RECAPTCHA_KEY %>"></div>
+  <% end %>
   <input type="button" onclick="javascript:history.back()" value="Back">
   <%= f.submit 'Submit' %>
 <% end %>
