@@ -1,8 +1,8 @@
 def generate_exam
-  exam = FactoryGirl.build(:event)
-  exam.event_type = 'exam'
-  exam.save
+  exam = FactoryGirl.create(:event, event_type: "exam")
   FactoryGirl.create(:available_time, event: exam)
+  student = FactoryGirl.create(:student, event: exam)
+  FactoryGirl.create(:selected_time, student: student)
   return exam
 end
 
