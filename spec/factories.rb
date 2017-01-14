@@ -12,6 +12,11 @@ FactoryGirl.define do
     name "John Smith"
   end
   
+  factory :available_time do
+    from (Time.now.beginning_of_day + 8.hours)
+    to (Time.now.beginning_of_day + 8.hours + 30.minutes)
+  end
+  
   factory :selected_time do
     from (Time.now.beginning_of_day + 8.hours)
   end
