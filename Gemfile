@@ -42,6 +42,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   # Use cucumber for feature tests
   gem 'cucumber-rails', :require => false
+  gem 'poltergeist'
   gem 'database_cleaner'
 end
 
