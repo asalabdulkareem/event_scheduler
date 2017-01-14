@@ -19,5 +19,6 @@ FactoryGirl.define do
   
   factory :selected_time do
     from (Time.now.beginning_of_day + 8.hours)
+    suitable true
   end
 end

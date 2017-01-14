@@ -1,8 +1,8 @@
 def generate_lecture
-  lecture = FactoryGirl.build(:event)
-  lecture.event_type = 'lecture'
-  lecture.save
+  lecture = FactoryGirl.create(:event, event_type: "lecture")
   FactoryGirl.create(:available_time, event: lecture)
+  student = FactoryGirl.create(:student, event: lecture)
+  FactoryGirl.create(:selected_time, student: student)
   return lecture
 end
 
